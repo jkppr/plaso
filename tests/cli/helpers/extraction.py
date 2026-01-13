@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Tests for the extraction CLI arguments helper."""
 
-import argparse
+import sys
 import unittest
 
 from plaso.cli import tools
@@ -17,7 +17,30 @@ class ExtractionArgumentsHelperTest(cli_test_lib.CLIToolTestCase):
 
   # pylint: disable=no-member,protected-access
 
-  _EXPECTED_OUTPUT = """\
+  _PYTHON3_13_OR_LATER = sys.version_info[0:2] >= (3, 13)
+
+  if _PYTHON3_13_OR_LATER:
+    _EXPECTED_OUTPUT = """\
+usage: cli_helper.py [--extract_winreg_binary] [--preferred_year YEAR]
+                     [--skip_compressed_streams]
+
+Test argument parser.
+
+{0:s}:
+  --extract_winreg_binary, --extract-winreg-binary
+                        Extract binary Windows Registry values. WARNING: This
+                        can make processing significantly slower.
+  --preferred_year, --preferred-year YEAR
+                        When a format\'s timestamp does not include a year,
+                        e.g. syslog, use this as the initial year instead of
+                        attempting auto-detection.
+  --skip_compressed_streams, --skip-compressed-streams
+                        Skip processing file content within compressed
+                        streams, such as syslog.gz and syslog.bz2.
+""".format(cli_test_lib.ARGPARSE_OPTIONS)
+
+  else:
+    _EXPECTED_OUTPUT = """\
 usage: cli_helper.py [--extract_winreg_binary] [--preferred_year YEAR]
                      [--skip_compressed_streams]
 
@@ -38,10 +61,7 @@ Test argument parser.
 
   def testAddArguments(self):
     """Tests the AddArguments function."""
-    argument_parser = argparse.ArgumentParser(
-        prog='cli_helper.py', description='Test argument parser.',
-        add_help=False,
-        formatter_class=cli_test_lib.SortedArgumentsHelpFormatter)
+    argument_parser = self._GetTestArgumentParser('cli_helper.py')
 
     extraction.ExtractionArgumentsHelper.AddArguments(argument_parser)
 

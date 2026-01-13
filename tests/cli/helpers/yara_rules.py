@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Tests for the YARA rules CLI arguments helper."""
 
-import argparse
+import sys
 import unittest
 
 from plaso.cli import tools
@@ -17,7 +17,21 @@ class YaraRulesArgumentsHelperTest(cli_test_lib.CLIToolTestCase):
 
   # pylint: disable=no-member,protected-access
 
-  _EXPECTED_OUTPUT = """\
+  _PYTHON3_13_OR_LATER = sys.version_info[0:2] >= (3, 13)
+
+  if _PYTHON3_13_OR_LATER:
+    _EXPECTED_OUTPUT = """\
+usage: cli_helper.py [--yara_rules PATH]
+
+Test argument parser.
+
+{0:s}:
+  --yara_rules, --yara-rules PATH
+                        Path to a file containing Yara rules definitions.
+""".format(cli_test_lib.ARGPARSE_OPTIONS)
+
+  else:
+    _EXPECTED_OUTPUT = """\
 usage: cli_helper.py [--yara_rules PATH]
 
 Test argument parser.
@@ -29,10 +43,7 @@ Test argument parser.
 
   def testAddArguments(self):
     """Tests the AddArguments function."""
-    argument_parser = argparse.ArgumentParser(
-        prog='cli_helper.py', description='Test argument parser.',
-        add_help=False,
-        formatter_class=cli_test_lib.SortedArgumentsHelpFormatter)
+    argument_parser = self._GetTestArgumentParser('cli_helper.py')
 
     yara_rules.YaraRulesArgumentsHelper.AddArguments(argument_parser)
 

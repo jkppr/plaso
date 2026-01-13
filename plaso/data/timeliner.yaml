@@ -6,6 +6,12 @@ attribute_mappings:
   description: 'Last Resume Time'
 place_holder_event: true
 ---
+data_type: 'android:event:battery'
+attribute_mappings:
+- name: 'recorded_time'
+  description: 'Recorded Time'
+place_holder_event: true
+---
 data_type: 'android:event:call'
 attribute_mappings:
 - name: 'end_time'
@@ -40,6 +46,12 @@ attribute_mappings:
   description: 'Friend Request Time'
 - name: 'last_active_time'
   description: 'Last Active Time'
+place_holder_event: false
+---
+data_type: 'android:sqlite:app_usage'
+attribute_mappings:
+- name: 'start_time'
+  description: 'Start Time'
 place_holder_event: false
 ---
 data_type: 'android:tango:conversation'
@@ -267,6 +279,12 @@ data_type: 'cookie:google:analytics:utmz'
 attribute_mappings:
 - name: 'last_visited_time'
   description: 'Last Visited Time'
+place_holder_event: true
+---
+data_type: 'cri:container:log:entry'
+attribute_mappings:
+- name: 'event_datetime'
+  description: 'Content Modification Time'
 place_holder_event: true
 ---
 data_type: 'cups:ipp:event'
@@ -1510,6 +1528,12 @@ attribute_mappings:
 - name: 'last_written_time'
   description: 'Content Modification Time'
 place_holder_event: true
+---
+data_type: 'windows:registry:motherboard_info'
+attribute_mappings:
+- name: 'last_written_time'
+  description: 'Content Modification Time'
+place_holder_event: false
 ---
 data_type: 'windows:registry:mrulist'
 attribute_mappings:

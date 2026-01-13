@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Tests for the VirusTotal analysis plugin CLI arguments helper."""
 
-import argparse
+import sys
 import unittest
 
 from plaso.analysis import virustotal
@@ -31,7 +31,29 @@ class VirusTotalAnalysisArgumentsHelperTest(
 
   # pylint: disable=no-member,protected-access
 
-  _EXPECTED_OUTPUT = """\
+  _PYTHON3_13_OR_LATER = sys.version_info[0:2] >= (3, 13)
+
+  if _PYTHON3_13_OR_LATER:
+    _EXPECTED_OUTPUT = """\
+usage: cli_helper.py [--virustotal-api-key API_KEY]
+                     [--virustotal-free-rate-limit] [--virustotal-hash HASH]
+
+Test argument parser.
+
+{0:s}:
+  --virustotal-api-key, --virustotal_api_key API_KEY
+                        Specify the API key for use with VirusTotal.
+  --virustotal-free-rate-limit, --virustotal_free_rate_limit
+                        Limit Virustotal requests to the default free API key
+                        rate of 4 requests per minute. Set this to false if
+                        you have an key for the private API.
+  --virustotal-hash, --virustotal_hash HASH
+                        Type of hash to query VirusTotal, the default is:
+                        sha256
+""".format(cli_test_lib.ARGPARSE_OPTIONS)
+
+  else:
+    _EXPECTED_OUTPUT = """\
 usage: cli_helper.py [--virustotal-api-key API_KEY]
                      [--virustotal-free-rate-limit] [--virustotal-hash HASH]
 
@@ -51,10 +73,7 @@ Test argument parser.
 
   def testAddArguments(self):
     """Tests the AddArguments function."""
-    argument_parser = argparse.ArgumentParser(
-        prog='cli_helper.py',
-        description='Test argument parser.', add_help=False,
-        formatter_class=cli_test_lib.SortedArgumentsHelpFormatter)
+    argument_parser = self._GetTestArgumentParser('cli_helper.py')
 
     virustotal_analysis.VirusTotalAnalysisArgumentsHelper.AddArguments(
         argument_parser)

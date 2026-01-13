@@ -43,7 +43,6 @@ PYTHON3_DEPENDENCIES="libbde-python3
                       libvsgpt-python3
                       libvshadow-python3
                       libvslvm-python3
-                      python3-XlsxWriter
                       python3-acstore
                       python3-artifacts
                       python3-bencode
@@ -57,7 +56,6 @@ PYTHON3_DEPENDENCIES="libbde-python3
                       python3-dfwinreg
                       python3-dtfabric
                       python3-flor
-                      python3-future
                       python3-idna
                       python3-lz4
                       python3-opensearch
@@ -69,9 +67,9 @@ PYTHON3_DEPENDENCIES="libbde-python3
                       python3-pyyaml
                       python3-redis
                       python3-requests
-                      python3-six
                       python3-urllib3
                       python3-xattr
+                      python3-xlsxwriter
                       python3-yara
                       python3-zmq
                       python3-zstd";

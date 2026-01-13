@@ -63,7 +63,6 @@ PYTHON_DEPENDENCIES="libbde-python3
                      python3-dfwinreg
                      python3-dtfabric
                      python3-flor
-                     python3-future
                      python3-idna
                      python3-lz4
                      python3-opensearch
@@ -73,7 +72,6 @@ PYTHON_DEPENDENCIES="libbde-python3
                      python3-pytsk3
                      python3-redis
                      python3-requests
-                     python3-six
                      python3-tz
                      python3-urllib3
                      python3-xattr
@@ -84,8 +82,7 @@ PYTHON_DEPENDENCIES="libbde-python3
                      python3-zstd";
 
 # Additional dependencies for running tests, alphabetized, one per line.
-TEST_DEPENDENCIES="python3-distutils
-                   python3-fakeredis
+TEST_DEPENDENCIES="python3-fakeredis
                    python3-mock
                    python3-setuptools";
 

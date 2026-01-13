@@ -334,8 +334,7 @@ class CLITool(object):
     """Lists the time zones."""
     max_length = 0
     for time_zone_name in pytz.all_timezones:
-      if len(time_zone_name) > max_length:
-        max_length = len(time_zone_name)
+      max_length = max(max_length, len(time_zone_name))
 
     utc_date_time = datetime.datetime.utcnow()
 
@@ -357,7 +356,7 @@ class CLITool(object):
         utc_offset_string = f'+{utc_offset:s}'
       else:
         _, _, utc_offset = local_date_string.rpartition('-')
-        utc_offset_string = '-{utc_offset:s}'
+        utc_offset_string = f'-{utc_offset:s}'
 
       table_view.AddRow([time_zone_name, utc_offset_string])
 

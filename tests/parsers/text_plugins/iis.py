@@ -176,7 +176,25 @@ class WinIISTextPluginTest(test_lib.TextPluginTestCase):
 
     number_of_event_data = storage_writer.GetNumberOfAttributeContainers(
         'event_data')
-    self.assertEqual(number_of_event_data, 12)
+    self.assertEqual(number_of_event_data, 15)
+
+    number_of_warnings = storage_writer.GetNumberOfAttributeContainers(
+        'extraction_warning')
+    self.assertEqual(number_of_warnings, 0)
+
+    number_of_warnings = storage_writer.GetNumberOfAttributeContainers(
+        'recovery_warning')
+    self.assertEqual(number_of_warnings, 0)
+
+  def testProcessWithIIS10LogAndCookieField(self):
+    """Tests the Process function with an IIS 10 log file and cs(Cookie)."""
+    plugin = iis.WinIISTextPlugin()
+    storage_writer = self._ParseTextFileWithPlugin(
+        ['iis10_cookies.log'], plugin)
+
+    number_of_event_data = storage_writer.GetNumberOfAttributeContainers(
+        'event_data')
+    self.assertEqual(number_of_event_data, 3)
 
     number_of_warnings = storage_writer.GetNumberOfAttributeContainers(
         'extraction_warning')
